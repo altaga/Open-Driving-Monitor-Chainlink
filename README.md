@@ -39,7 +39,7 @@ Video Demo: Click on the image
 
 Contruimos una plataforma powered by Chainlink and AI models que es capas de monitorear continuamente el enviroment de vehiculos y con esta informacion generar una ficha de venta dNFT sobre la red de Polygon.
 
-<img src="https://i.ibb.co/B4YMrSQ/image.png" width="600">
+<img src="https://i.ibb.co/B4YMrSQ/image.png">
 
 Ademas de un sistema de hardware que se encarga de correr los modelos de AI y obtener los datos de los sensores.
 
