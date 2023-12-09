@@ -39,7 +39,7 @@ Video Demo: Click on the image
 
 Contruimos una plataforma powered by Chainlink and AI models que es capas de monitorear continuamente el enviroment de vehiculos y con esta informacion generar una ficha de venta dNFT sobre la red de Polygon.
 
-<img src="https://i.ibb.co/B4YMrSQ/image.png">
+<img src="https://i.ibb.co/B4YMrSQ/image.png" width="1000">
 
 Ademas de un sistema de hardware que se encarga de correr los modelos de AI y obtener los datos de los sensores.
 
@@ -336,7 +336,7 @@ Open Driving Marketplace: [CLICK HERE](https://open-driving-marketplace.vercel.a
 
 La aplicacion puede funciona correctamente en celular y en navegador, ademas de proveer los datos mas actualizados de los mismos cargados en el smart contract.
 
-<img src="https://i.ibb.co/B4YMrSQ/image.png" width="600">
+<img src="https://i.ibb.co/B4YMrSQ/image.png" width="1000">
 
 [CODE](./Marketplace%20WebPage/)
 
