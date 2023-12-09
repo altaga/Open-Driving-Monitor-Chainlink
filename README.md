@@ -11,13 +11,13 @@ Drowsiness, Blind Spot, and Emotions Monitor system for driving intended for con
 Video Demo: Click on the image
 [![Car](https://i.ibb.co/Vm05pCc/Image.png)](pending...)
 
-### WebPages:
+### Web Platforms:
 
 - Open Driving Marketplace: [CLICK HERE](https://open-driving-marketplace.vercel.app/)
 
 - Open Driving Navigator: [CLICK HERE](https://open-driving-navigator.vercel.app/)
 
-### Test Notebooks:
+### AI Test Notebooks:
 
 - Emotions: [CLICK HERE](./Emotions/test/Test_Emotions_DNN.ipynb)
 
@@ -391,8 +391,8 @@ Links:
 - [Open Driving Monitor](#open-driving-monitor)
 - [Fast Links:](#fast-links)
     - [Video Demo:](#video-demo)
-    - [WebPages:](#webpages)
-    - [Test Notebooks:](#test-notebooks)
+    - [Web Platforms:](#web-platforms)
+    - [AI Test Notebooks:](#ai-test-notebooks)
 - [Introduction:](#introduction)
 - [Problem:](#problem)
 - [Solution:](#solution)
