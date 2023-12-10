@@ -7,7 +7,7 @@
 ### Video Demo:
 
 Video Demo: Click on the image
-[![Car](https://i.ibb.co/Vm05pCc/Image.png)](pending...)
+[![Car](https://i.ibb.co/Vm05pCc/Image.png)](https://youtu.be/99zY3qDbcdM)
 
 ### Web Platforms:
 
@@ -366,7 +366,7 @@ NOTE: the page requires location permissions so that when sending data to the pl
 # EPIC DEMO:
 
 Video: Click on the image
-[![Car](https://i.ibb.co/Vm05pCc/Image.png)](pending...)
+[![Car](https://i.ibb.co/Vm05pCc/Image.png)](https://youtu.be/99zY3qDbcdM)
 
 
 # Commentary and final words:
