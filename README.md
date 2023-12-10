@@ -44,7 +44,7 @@ We built a platform powered by Chainlink and AI models that is able to continuou
 
 <img src="https://i.ibb.co/B4YMrSQ/image.png" width="1000">
 
-Ademas de un sistema de hardware que se encarga de correr los modelos de AI y obtener los datos de los sensores.
+In addition to a hardware system that is responsible for running the AI models and obtaining data from the sensors.
 
 <img src="https://i.ibb.co/WGzFdvm/hardware-1.png" width="600">
 
@@ -107,22 +107,22 @@ https://www.nxp.com/design/design-center/designs/nxp-rapid-iot-prototyping-kit:I
 This general connection diagram shows how through a camera we can obtain images of the driver or those of the streets to later obtain relevant data on the driver's alertness, his state of mind and the objects around the car. All fed back by our internal screen and our online web map.
 
 - On-Chain:
-  - Chainlink Functions: Las nuevas chainlink functions son utilizadas para poder relizar API Calls a nuestra API Off-Chain y actualizar los metadatos de cada uno de los dNFTs cuando se requiere.
+  - Chainlink Functions: The new chainlink functions are used to be able to make API Calls to our Off-Chain API and update the metadata of each of the dNFTs when required.
 
-  - Polygon: Esta red se utiliza ya que es una de las redes compatibles con Chainlink Functions y sus bajas gas fees.
+  - Polygon: This network is used as it is one of the networks compatible with Chainlink Functions and its low gas fees.
 
-  - IPFS: usamos el servicios de IPFS de NFT.Storage para realizar el almacenamiento de los metadatos de los NFTs y las imagenes.
+  - IPFS: We use the NFT.Storage IPFS services to store the metadata of the NFTs and images.
 
 - Off-Chain:
-  - AWS DynamoDB: En esta base de datos actualizamos los valores de los sensores y los datos obtenidos de las AI de forma continua.
-
-  - AWS IoT: usamos este servicio para comunicarnos de forma segura entre los sensores y el modulo AI hacia la cloud.
-
-  - AWS API Gateway: Usamos este servicio como API principal para poder ser llamada por Chainlink Functions.
+  - AWS DynamoDB: In this database we update the values of the sensors and the data obtained from the AI services continuously.
+    
+  - AWS IoT: We use this service to communicate securely between the sensors and the AI module to the cloud.
+    
+  - AWS API Gateway: We use this service as the main API to be called by Chainlink Functions.
 
 - Sensors:
 
-  - NXP Rapid IoT Prototyping: Este combo de sensores nos permite medir muchos aspectos del auto y con esos datos poder genera un mejor reporte de sus condiciones y su valor en el tiempo.
+  - NXP Rapid IoT Prototyping: This sensor kit allows us to measure many aspects of the car and with that data we can generate a better report on its conditions and its value over time.
 
 - AI Module:
   - Eye State Detection: Through preprocessing in OpenCV haarcascades, OpenCV DNN and a frozen graph inference model (Tensor Flow), we obtain the driver's state of attention and drowsiness.. [Details](#drowsiness-model-training)
@@ -138,17 +138,17 @@ This general connection diagram shows how through a camera we can obtain images 
 
 ## Chainlink Functions:
 
-Para nuestro proyecto es indispendable que los datos de cada uno de los automoviles registrados como dNFTs esten actualizados, sin embargo realizar esta actualizacion es un problema tecnico complicado. Para eso gracias a las Chainlink funtions y sus nuevos [Decentralized Oracle Network (DON)](https://docs.chain.link/chainlink-functions/resources/concepts) permiten computar API calls y proveer a los smart contracts de esa informacion mediante un modelo de suscripcion en la plataforma de ChainLink.
+For our project it is essential that the data of each of the cars registered as dNFTs is updated, however performing this update is a complicated technical problem. For this, thanks to the Chainlink functions and its new [Decentralized Oracle Network (DON)](https://docs.chain.link/chainlink-functions/resources/concepts) they allow computing API calls and providing the smart contracts with that information through a subscription model on the ChainLink platform.
 
 <img src="https://i.ibb.co/zPwcVdJ/software-Chainlink-Only-drawio.png" width="1000">
 
 ### Contract:
 
-El contrato que tenemos en la blockchain para todo este proyecto tiene el siguiente codigo.
+The contract that we have on the blockchain for this entire project has the following code.
 
 [dNFT Contract](./Contracts/OpenDrivingNFT.sol)
 
-Lo primero que realizamos fue implementar en el contrato de ERC721 los modulos de Chainlink Functions.
+The first thing we did was implement the Chainlink Functions modules in the ERC721 contract.
 
     import {FunctionsClient} from "@chainlink/contracts/src/v0.8/functions/dev/v1_0_0/FunctionsClient.sol";
     import {ConfirmedOwner} from "@chainlink/contracts/src/v0.8/shared/access/ConfirmedOwner.sol";
@@ -167,7 +167,7 @@ Lo primero que realizamos fue implementar en el contrato de ERC721 los modulos d
 
     }
 
-Una vez realizado esto modificamos la funcion **sendRequest** para realiza un API Call a API Gateway de AWS, donde la API retorna la metadata mas actualizada del auto en forma de un URI de IPFS.
+Once this is done, we modify the **sendRequest** function to make an API Call to the AWS API Gateway, where the API returns the most up-to-date metadata of the car in the form of an IPFS URI.
 
     string source =
       "const car = args[0];"
@@ -202,7 +202,7 @@ Una vez realizado esto modificamos la funcion **sendRequest** para realiza un AP
         return s_lastRequestId;
     }
 
-La segunda funcion a modificar fue **fulfillRequest** ya que al recibir la nueva URI esta tenia que ser capaz de actualizar el URI asociado con el token.
+The second function to modify was **fulfillRequest** since upon receiving the new URI it had to be able to update the URI associated with the token.
 
     function fulfillRequest(
         bytes32 requestId,
@@ -231,41 +231,41 @@ La segunda funcion a modificar fue **fulfillRequest** ya que al recibir la nueva
 
 ### Chainlink Functions Platform:
 
-Ya con todas las funciones implementadas correctamente, solo quedo desplegar el contrato. Pero faltaba algo mas teniamos que hacer que nuestro contrato pudiera consumir la funcion en Chainlink, asi que tuvimos que crear una subscripcion en https://functions.chain.link.
+Now that all the functions have been implemented correctly, all that remains is to deploy the contract. But something else was missing, we had to make our contract able to consume the function on Chainlink, so we had to create a subscription at https://functions.chain.link.
 
 <img src="https://i.ibb.co/vdLhMts/image.png" width="600">
 
-Apesar de que es un proceso muy sencillo encontramos el siguiente mensaje al tratar de realizar el funding de nuestra subscripcion.
+Although it is a very simple process, we found the following message when trying to fund our subscription.
 
 <img src="https://i.ibb.co/y8J8WbQ/Screenshot-2023-12-07-150720.png" width="600">
 
-Esto fue una sorpresa para nosotros porque ya teniamos LINK en nuestra wallet, sin embargo en la seccion de wallet encontramos el problema.
+This was a surprise for us because we already had LINK in our wallet, however in the wallet section we found the problem.
 
 <img src="https://i.ibb.co/Y8sdGww/Screenshot-2023-12-07-150930.png" width="600">
 
-As que todo lo que fue necesario hacer, fue realizar el swap de LINK en la pagina https://pegswap.chain.link/.
+So all that was necessary to do was perform the LINK swap on the page https://pegswap.chain.link/.
 
 <img src="https://i.ibb.co/t8Gmg07/Screenshot-2023-12-07-150913.png" width="600">
 
-Una vez realizado el swap fue posible realizar el funding de nuestra subscripcion.
+Once the swap was made it was possible to fund our subscription.
 
 <img src="https://i.ibb.co/5WN600v/Screenshot-2023-12-07-151247-Copy.png" width="600">
 
-Y por ultimo solo tuvimos que agregar nuestro contrato como consumer de la subscripcion.
+And finally we just had to add our contract as a consumer of the subscription.
 
 <img src="https://i.ibb.co/pwjTY0J/Screenshot-2023-12-07-151317.png" width="600">
 
-Una vez realizado esto y llamar desde nuestro contrato la funcion **sendRequest** podiamos ver como chainlink recibia la peticion y nos proporcionaba unos segundos despues el dato en el contrato.
+Once this was done and we called the **sendRequest** function from our contract, we could see how chainlink received the request and provided us with the data in the contract a few seconds later.
 
 <img src="https://i.ibb.co/yq151CV/Screenshot-2023-12-07-155947.png" width="600">
 
 ## AI Models and Sensors:
 
-Todos estos modelos y sensores tienen como finalidad en el proyecto proveer un valor agregado al poder relizar mediciones del auto en tiempo real es posible realizar una mejor valoracion del uso continuo del vehiculo.
+The purpose of all these models and sensors in the project is to provide added value by being able to measure the car in real time, making it possible to make a better assessment of the continuous use of the vehicle.
 
-- Emotion: Gracias a obtener la emocion del conductor nos es posible predecir un manejo descuidado en el vehiculo.
-- Drowsiness: Con este resultado nos es posible valorar si el auto tuvo algun choque, cual fue la razon del mismo.
-- Enviroment Sensors: Con estos datos nos es posible saber en que condiciones el conductor expone el vehiculo, asi como mediciones de aceleraciones que sufra el vehiculo, asi como deteccion de choques automatica.
+- Emotion: Thanks to obtaining the driver's emotion it is possible for us to predict careless handling of the vehicle.
+- Drowsiness: With this result it is possible for us to assess if the car had a crash, what was the reason for it.
+- Environment Sensors: With this data it is possible for us to know under what conditions the driver exposes the vehicle, as well as measurements of accelerations suffered by the vehicle, as well as automatic crash detection.
 
 ### Emotions Model
 
@@ -315,29 +315,29 @@ The model used in the test is the Yolo-Tiny model, because it is the lightest th
 
 ### Enviroment Sensors:
 
-Este combo de sensores Bluetooth Low Energy (BLE) se conecta directamente a nuestro modulo AI, el cual manda junto con los resultados de las redes neuronales los datos del sensor a la base de datos.
+This Bluetooth Low Energy (BLE) sensor kit connects directly to our AI module, which sends the sensor data to the database along with the results of the neural networks.
 
 <img src="https://i.ibb.co/dr5K3Th/image.png" width="600">
 
-Los sensores que nos provee el kit y su utilidad es la siguiente.
+The sensors that the kit provides us and their usefulness are as follows.
 
-- Air Quality: nos provee las condiciones de aire del vehiculo, limpieza del aire acondicionado, humo por cigarro, etc.
-- Accelerometer: Este nos provee detalladamente si el auto sufre aceleraciones o desaceleraciones muy bruscas, asi como choques.
-- Temperature/Humidity Sensor: nos indica si el vehiculo sufre de temperaturas o humedad inusuales que puedan afectar al interior del vehiculo.
-- Luminosity: si el vehiculo es polarizado, nos permite medir si este cumple su funcion correctamente y definir si es un buen valor agregado.
-- Barometer: nos permite medir los cambios de presion del vehiculo.
-
+- Air Quality: provides us with the air conditions of the vehicle, cleanliness of the air conditioning, cigarette smoke, etc.
+- Accelerometer: This provides us in detail if the car suffers very sudden accelerations or decelerations, as well as crashes.
+- Temperature/Humidity Sensor: tells us if the vehicle suffers from unusual temperatures or humidity that could affect the interior of the vehicle.
+- Luminosity: if the vehicle is tinted, it allows us to measure if it fulfills its function correctly and define if it is a good added value.
+- Barometer: allows us to measure the pressure changes in the vehicle.
+  
 [CODE](./RPi%20Deploy/Sensors/sensors.py)
 
 ## Open Driving Marketplace:
 
-Sin embargo todos los datos actualizados continuamente en la blockchain no son utiles si no es posible desplegarlos y verlos de forma sencilla, asi que creamos una progessive web app donde es posible ver los datos de los autos en tiempo real, todo directamente del contrato en polygon.
+However, all the continuously updated data on the blockchain is not useful if it is not possible to display and view it easily, so we created a progressive web app where it is possible to view the car data in real time, all directly from the contract in polygon. .
 
 Open Driving Marketplace: [CLICK HERE](https://open-driving-marketplace.vercel.app/)
 
 <img src="https://i.ibb.co/PgSBppK/image.png" height="300"> <img src="https://i.ibb.co/bRyLDxR/image.png" height="300">
 
-La aplicacion puede funciona correctamente en celular y en navegador, ademas de proveer los datos mas actualizados de los mismos cargados en el smart contract.
+The application can work correctly on cell phones and in browsers, in addition to providing the most up-to-date data uploaded to the smart contract.
 
 <img src="https://i.ibb.co/B4YMrSQ/image.png" width="1000">
 
@@ -373,7 +373,9 @@ Video: Click on the image
 
 # Commentary and final words:
 
-
+We think we accomplished what we wanted to do wwhich was bringing the dNFT idea we saw, into a real dNFT platform with real sensors and the blockchain backend with Chainlink functions that we wanted to try out.
+Of course this is just a functional PoC, but it serves as a blueprint of how these kind of solutions would be built. We still need to improve the front end of it to make it more comprehensive, but all the backend functionality works better than expected even with the AI aspects of it. 
+Hopefully you liked the project, thanks for reading.
 
 # References:
 
