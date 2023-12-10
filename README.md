@@ -31,13 +31,16 @@ Video Demo: Click on the image
 
 <img src="https://i.ibb.co/HKC3yBh/e4264624281d816222229deed61c8e32.webp" width="600">
 
-# Problem:
+# Inspiration:
 
+Approximately a month or so ago we saw in chainlinks official X.com a post where there was an idea for dynamic NFTs that could serve as a way to valuate property or physical goods such as sneakers, homes or cars that employed IoT sensors that fed data through Chainlink oracles and functions to those NFTs.
+
+<img src="https://i.ibb.co/sjB72SV/dnfts.png">
 
 
 # Solution:
 
-Contruimos una plataforma powered by Chainlink and AI models que es capas de monitorear continuamente el enviroment de vehiculos y con esta informacion generar una ficha de venta dNFT sobre la red de Polygon.
+We built a platform powered by Chainlink and AI models that is able to continuously monitor the environment of vehicles and with this information generate a dNFT sales token on the Polygon network.
 
 <img src="https://i.ibb.co/B4YMrSQ/image.png" width="1000">
 
