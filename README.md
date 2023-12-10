@@ -43,7 +43,7 @@ Contruimos una plataforma powered by Chainlink and AI models que es capas de mon
 
 Ademas de un sistema de hardware que se encarga de correr los modelos de AI y obtener los datos de los sensores.
 
-<img src="https://i.ibb.co/WsggbsV/20231124-151109.jpg" width="600">
+<img src="https://i.ibb.co/WGzFdvm/hardware-1.png" width="600">
 
 ## Materials:
 
@@ -356,7 +356,7 @@ NOTE: the page requires location permissions so that when sending data to the pl
 
 ### Complete System:
 
-<img src="https://i.ibb.co/WsggbsV/20231124-151109.jpg">
+<img src="https://i.ibb.co/WGzFdvm/hardware-1.png">
 
 ### In-car system:
 
